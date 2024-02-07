@@ -1,9 +1,4 @@
 import { useState } from 'react'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useWaitForTransaction
-} from 'wagmi'
 import { abi } from '../contracts-artifacts/abi'
 import {
   Button,
@@ -20,46 +15,10 @@ export default function VerifyProof() {
   const [enabled, setEnabled] = useState(false)
   const toast = useToast()
 
-  const { config } = usePrepareContractWrite({
-    enabled: enabled,
-    address: '0xacae5e972FBBEC5cc761a5F75705Ba041AC870Be',
-    abi: abi,
-    functionName: 'verifyProof',
-    chainId: 420,
-    args: [JSON.parse(dataStr)],
-    onSuccess(data) {
-      console.log('Successfully Prepared', data)
-    },
-    onError(error) {
-      console.log('Error in Prepare')
-      console.log(error)
-      toast({
-        title: 'Please Enter a valid proof',
-        description: error.message,
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-        status: 'error'
-      })
-    }
-  })
-  const { data, write, isLoading, isSuccess, isError, error } =
-    useContractWrite(config)
+  
+ 
 
-  const waitForTransaction = useWaitForTransaction({
-    hash: data?.hash,
-    onSettled(data, error) {
-      toast({
-        title: 'tx settled',
-        description: '',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-        status: 'success'
-      })
-      console.log(data?.logs)
-    }
-  })
+
 
   return (
     <Flex
@@ -95,13 +54,14 @@ export default function VerifyProof() {
               })
               return
             }
-            write?.()
+            // write?.()
           }}
         >
-          Verify Proof{isLoading && <Spinner />}
+          Verify Proof
+          {/* {isLoading && <Spinner />} */}
         </Button>
 
-        {isError && <Text>{error?.message ?? 'Error'}</Text>}
+        {/* {isError && <Text>{error?.message ?? 'Error'}</Text>} */}
       </Flex>
     </Flex>
   )

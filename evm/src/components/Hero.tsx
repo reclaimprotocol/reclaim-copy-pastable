@@ -14,24 +14,13 @@ import {
   Spinner,
   Center
 } from '@chakra-ui/react'
-import { ConnectKitButtonCustom } from '../components/ConnectKitButton'
-import { useAccount } from 'wagmi'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function Hero () {
-  const { isConnected } = useAccount()
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (isConnected) {
-      setLoading(true)
-      setTimeout(() => {
-        router.push('/create-credential')
-      }, 2000)
-    }
-  }, [isConnected])
 
   return (
     <>
@@ -81,7 +70,6 @@ export default function Hero () {
                 alignSelf={'center'}
                 position={'relative'}
               >
-                <ConnectKitButtonCustom />
               </Stack>
             </Stack>
           </Container>

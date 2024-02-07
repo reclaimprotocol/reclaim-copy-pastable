@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import Link from 'next/link'
-import { ConnectKitButton } from 'connectkit'
 
 interface Props {
   //   children: React.ReactNode
@@ -36,7 +35,6 @@ export default function Navbar ({ showConnectWalletButton }: Props) {
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
-              {showBtn && <ConnectKitButton />}
             </Stack>
           </Flex>
         </Flex>

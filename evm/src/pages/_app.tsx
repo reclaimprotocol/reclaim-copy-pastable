@@ -1,6 +1,5 @@
 'use client'
 import { AppProps } from 'next/app'
-import { Providers } from '../components/providers'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
@@ -31,9 +30,7 @@ function App({ Component, pageProps }: AppProps) {
         <meta name='theme-color' content='#ebedff' />
       </Head>
       <body>
-        <Providers>
           <Component {...pageProps} />
-        </Providers>
       </body>
     </html>
   )
