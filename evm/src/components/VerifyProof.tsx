@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { abi } from '../contracts-artifacts/abi'
 import {
   Button,
   Spinner,
@@ -8,6 +7,7 @@ import {
   Flex,
   Textarea
 } from '@chakra-ui/react'
+import { callContract } from '../../lib/wallet'
 
 
 export default function VerifyProof() {
@@ -43,17 +43,18 @@ export default function VerifyProof() {
           disabled={!enabled}
           colorScheme='blue'
           onClick={() => {
-            if (!enabled) {
-              toast({
-                title: 'Please enable verify Button',
-                description: 'Please enter a valid proof',
-                duration: 5000,
-                isClosable: true,
-                position: 'top-right',
-                status: 'error'
-              })
-              return
-            }
+            callContract(dataStr)
+            // if (!enabled) {
+            //   toast({
+            //     title: 'Please enable verify Button',
+            //     description: 'Please enter a valid proof',
+            //     duration: 5000,
+            //     isClosable: true,
+            //     position: 'top-right',
+            //     status: 'error'
+            //   })
+            //   return
+            // }
             // write?.()
           }}
         >

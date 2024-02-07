@@ -12,14 +12,12 @@ import {
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import Link from 'next/link'
+import ConnectButton from './ConnectButton'
 
-interface Props {
-  //   children: React.ReactNode
-  showConnectWalletButton?: boolean
-}
 
-export default function Navbar ({ showConnectWalletButton }: Props) {
-  const showBtn = showConnectWalletButton ?? false
+
+export default function Navbar () {
+  
   const { colorMode, toggleColorMode } = useColorMode()
   return (
     <>
@@ -32,9 +30,8 @@ export default function Navbar ({ showConnectWalletButton }: Props) {
           </Flex>
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
-              <Button onClick={toggleColorMode}>
-                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-              </Button>
+             
+              <ConnectButton/>
             </Stack>
           </Flex>
         </Flex>

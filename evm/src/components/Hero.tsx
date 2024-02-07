@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import ConnectButton from "./ConnectButton"
 
 export default function Hero () {
   const router = useRouter()
