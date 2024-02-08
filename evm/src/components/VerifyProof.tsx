@@ -1,69 +1,45 @@
-import { useState } from 'react'
-import {
-  Button,
-  Spinner,
-  useToast,
-  Text,
-  Flex,
-  Textarea
-} from '@chakra-ui/react'
-import { callContract } from '../../lib/wallet'
-
+import { useState } from "react";
+import { Button, Text, Flex, Textarea } from "@chakra-ui/react";
+import { callContract } from "../../lib/wallet";
 
 export default function VerifyProof() {
-  const [dataStr, setDataStr] = useState('{}')
-  const [enabled, setEnabled] = useState(false)
-  const toast = useToast()
-
-  
- 
-
-
+  const [dataStr, setDataStr] = useState("{}");
+  const [error, setError] = useState(false);
+  const [proved, setProved] = useState(false);
 
   return (
     <Flex
-      maxWidth={'container.lg'}
-      justifyContent={'center'}
-      justifyItems={'center'}
-      width={'100%'}
+      maxWidth={"container.lg"}
+      justifyContent={"center"}
+      justifyItems={"center"}
+      width={"100%"}
     >
-      <Flex direction='column' gap='2' minWidth={'600px'}>
+      <Flex direction="column" gap="2" minWidth={"600px"}>
         <Text>Please place your proof here!</Text>
-        <Textarea onChange={e => setDataStr(e.target.value)} />
-        <Button
-          disabled={!enabled}
-          colorScheme='blue'
-          onClick={() => {
-            setEnabled(!enabled)
+        <Textarea
+          height={350}
+          onChange={(e) => {
+            setDataStr(e.target.value);
+            setError(false);
+            setProved(false);
           }}
-        >
-          {!enabled ? 'Enable' : 'Disable'} Verification Before Sending tx
-        </Button>
+        />
         <Button
-          disabled={!enabled}
-          colorScheme='blue'
-          onClick={() => {
-            callContract(dataStr)
-            // if (!enabled) {
-            //   toast({
-            //     title: 'Please enable verify Button',
-            //     description: 'Please enter a valid proof',
-            //     duration: 5000,
-            //     isClosable: true,
-            //     position: 'top-right',
-            //     status: 'error'
-            //   })
-            //   return
-            // }
-            // write?.()
+          colorScheme="blue"
+          onClick={async () => {
+            const hash = await callContract(dataStr);
+            if (hash == "0x") {
+              setError(true);
+            } else {
+              setProved(true);
+            }
           }}
         >
           Verify Proof
-          {/* {isLoading && <Spinner />} */}
         </Button>
-
-        {/* {isError && <Text>{error?.message ?? 'Error'}</Text>} */}
+        {error && <p> There was an error, please try again </p>}
+        {proved && <p> Proved successfully! </p>}
       </Flex>
     </Flex>
-  )
+  );
 }

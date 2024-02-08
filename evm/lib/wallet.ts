@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { ABI, ADDRESS, OPT_GOERLI } from "../config/constants";
+import { ABI, ADDRESS } from "../config/constants";
 
 interface Window {
   ethereum: any;
@@ -22,6 +22,7 @@ export const getCurrentChainId = () => {
 };
 
 export const callContract = async (data: string) => {
+  try {
   const provider = new ethers.BrowserProvider(
     (window as unknown as Window).ethereum
   );
@@ -30,6 +31,10 @@ export const callContract = async (data: string) => {
   const data_json = [JSON.parse(data)];
   const tx = await contract.verifyProof(data_json);
   return tx.hash;
+  }
+  catch(e){
+    return '0x'
+  }
 };
 
 export const formatAddress = (address: String) => {

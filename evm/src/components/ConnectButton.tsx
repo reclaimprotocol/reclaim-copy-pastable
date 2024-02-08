@@ -5,7 +5,6 @@ import {
   handleSwitchToOptGoerli,
 } from "../../lib/wallet";
 import { OPT_GOERLI } from "../../config/constants";
-import SwitchNetwork from "./SwtichNetwork";
 
 interface Window {
   ethereum: any;
@@ -13,8 +12,7 @@ interface Window {
 
 const ConnectButton = () => {
   const [userAddress, setUserAddress] = useState("");
-  const [network, setNetwork] = useState("");
-  const [networkChange, setNetworkChange] = useState(false);
+  const [network, setNetwork] = useState(0);
 
   useEffect(() => {
     (window as unknown as Window).ethereum &&
@@ -36,9 +34,9 @@ const ConnectButton = () => {
     if (chain == OPT_GOERLI) {
       setNetwork(chain);
     } else {
-      setNetwork("");
+      setNetwork(0);
     }
-  }, [networkChange]);
+  }, []);
 
   useEffect(() => {
     (window as unknown as Window).ethereum &&
@@ -47,14 +45,13 @@ const ConnectButton = () => {
         (chain: any) => {
           if (chain == OPT_GOERLI) {
             setNetwork(chain);
-          }
-          {
-            setNetwork("");
+          } else {
+            setNetwork(0);
           }
         }
       );
   }, []);
-  useEffect(() => {}, [userAddress]);
+
   const handleConnect = async () => {
     try {
       if (!(window as unknown as Window).ethereum)
@@ -69,21 +66,35 @@ const ConnectButton = () => {
       throw new Error("No ethereum object.");
     }
   };
+
   return (
     <div>
       {userAddress ? (
         <div>{formatAddress(userAddress)}</div>
       ) : (
-        <div
+        <button
           onClick={() => {
             handleConnect();
           }}
         >
           {" "}
           Connect MetaMask{" "}
-        </div>
+        </button>
       )}
-      <SwitchNetwork isOpt={network != ""} setNetwork={setNetwork} />
+      <div>
+        {network != 0 ? (
+          <div>{"You are on Optimism Goerli"}</div>
+        ) : (
+          <button
+            onClick={async () => {
+              await handleSwitchToOptGoerli();
+            }}
+          >
+            {" "}
+            Switch to Optimism Goerli{" "}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

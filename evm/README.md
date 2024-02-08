@@ -15,7 +15,6 @@ https://goerli-optimism.etherscan.io/address/0xacae5e972fbbec5cc761a5f75705ba041
 ### Faulty proof
 
 {
-  "proof": {
     "claimInfo": {
       "provider": "google-login",
       "parameters": "{\"emailAddress\":\"mail@gmail.com\"}",
@@ -33,12 +32,10 @@ https://goerli-optimism.etherscan.io/address/0xacae5e972fbbec5cc761a5f75705ba041
       ]
     }
   }
-}
+
 
 ### Valid proof
-
 {
-  "proof": {
     "claimInfo": {
       "context": "",
       "parameters": "{\"uid\":\"673906874713\"}",
@@ -56,4 +53,4 @@ https://goerli-optimism.etherscan.io/address/0xacae5e972fbbec5cc761a5f75705ba041
       ]
     }
   }
-}
+
